@@ -37,7 +37,8 @@ HEADERS += \
     dialogs/gotolinedialog.h
 
 RESOURCES += \
-    dialogs/application.qrc
+    dialogs/application.qrc \
+    resources/icons.qrc
 
 FORMS += \
     dialogs/finddialog.ui \
