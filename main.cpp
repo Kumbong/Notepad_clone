@@ -4,8 +4,8 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    QCoreApplication::setOrganizationName("QtProject");
-    QCoreApplication::setApplicationName("Textpad");
+    QCoreApplication::setOrganizationName("Notepad--");
+    QCoreApplication::setApplicationName("Notepad--");
     QCoreApplication::setApplicationVersion(QT_VERSION_STR);
 
 

@@ -74,7 +74,7 @@ bool MainWindow::saveFile(const QString& fileName){
 
     //don't wtie to a read only file
     if (!file.open(QFile::WriteOnly | QFile::Text)){
-        QMessageBox::warning(this,tr("Notepad"),tr("Cannot write file"));//edit to make use of fileName and error message
+        QMessageBox::warning(this,tr("Notepad--"),tr("Cannot write file"));//edit to make use of fileName and error message
         return false;
     }
    //change the cursor while saving the file
@@ -152,7 +152,7 @@ void MainWindow::loadFile(const QString& fileName){
     QFile file(fileName);
 
     if(!file.open(QFile::ReadOnly | QFile::Text)){
-        QMessageBox::warning(this,tr("NotePad"),tr("Cannot Open file"));//edit to take care of the particular file
+        QMessageBox::warning(this,tr("NotePad--"),tr("Cannot Open file"));//edit to take care of the particular file
         return;
     }
 
@@ -242,8 +242,8 @@ void MainWindow::showStatusBar(bool checked){
         statusBar()->hide();
 }
 void MainWindow::viewHelp(){
-    QMessageBox::about(this,tr("About Notepad"),tr("The <b>NotePad Clone</b> This is a clone version "
-                                                       "of the Notepad application provided by microsoft, "));
+    QMessageBox::about(this,tr("About Notepad--"),tr("<b>NotePad-- Clone</b>\n This is a light, cross platform variant"
+                                                       "of the Notepad application on Windows, "));
 
 }
 void MainWindow::about(){
@@ -447,7 +447,7 @@ void MainWindow::createHelpActions(){
     connect(helpAction,&QAction::triggered,this,&MainWindow::viewHelp);
     helpMenu->addAction(helpAction);
 
-    QAction *aboutAction = new QAction(tr("&About NotePad"),this);
+    QAction *aboutAction = new QAction(tr("&About NotePad--"),this);
     //set status tip
     connect(aboutAction,&QAction::triggered,this,&MainWindow::viewHelp);
     helpMenu->addAction(aboutAction);
