@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "finddialog.h"
+#include "dialogs/finddialog.h"
 #include <QMainWindow>
 
 class QSessionManager;

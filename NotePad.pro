@@ -25,21 +25,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-    finddialog.cpp \
-    replacedialog.cpp \
-    gotolinedialog.cpp
+    mainwindow/mainwindow.cpp \
+    dialogs/finddialog.cpp \
+    dialogs/replacedialog.cpp \
+    dialogs/gotolinedialog.cpp
 
 HEADERS += \
-        mainwindow.h \
-    finddialog.h \
-    replacedialog.h \
-    gotolinedialog.h
+    mainwindow/mainwindow.h \
+    dialogs/finddialog.h \
+    dialogs/replacedialog.h \
+    dialogs/gotolinedialog.h
 
 RESOURCES += \
-    application.qrc
+    dialogs/application.qrc
 
 FORMS += \
-    finddialog.ui \
-    replacedialog.ui \
-    gotolinedialog.ui
+    dialogs/finddialog.ui \
+    dialogs/replacedialog.ui \
+    dialogs/gotolinedialog.ui

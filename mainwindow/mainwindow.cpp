@@ -1,6 +1,6 @@
 #include "mainwindow.h"
-#include "replacedialog.h"
-#include "gotolinedialog.h"
+#include "dialogs/replacedialog.h"
+#include "dialogs/gotolinedialog.h"
 #include <QtWidgets>
 #include <QtPrintSupport/QPrintDialog>
 
