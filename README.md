@@ -3,7 +3,7 @@ A lightweight and cross platform variant of notepad
 
 ## Features
    * Written in uncomplicated c++
-   * supports all operations on notepad and add extra features
+   * supports all operations on notepad and adds extra features
    * crossplatform
    
 ## Demo
