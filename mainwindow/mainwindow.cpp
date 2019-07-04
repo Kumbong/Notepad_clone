@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     textEdit = new QTextEdit(this);
+
     createActions();
     setCentralWidget(textEdit);
 
@@ -23,14 +24,20 @@ MainWindow::MainWindow(QWidget *parent)
     textEdit->setFontFamily(QString("Courier"));
     textEdit->setFontPointSize(12);
 }
+
 void MainWindow::documentWasModified(){
      setWindowModified(textEdit->document()->isModified());
 }
 MainWindow::~MainWindow()
 {
 
-}bool MainWindow::askToSave(){
+}
 
+bool MainWindow::askToSave(){
+    //ask the user if the current work should be saved when user attempts exit or opens new
+    //file
+
+    //don't ask if the file is not modified from the last save
     if(!isWindowModified())
         return true;
 
@@ -40,6 +47,7 @@ MainWindow::~MainWindow()
     msgBox.setDefaultButton(QMessageBox::Save);
     int ret = msgBox.exec();
 
+    //return if the file was saved or not
     switch(ret){
     case QMessageBox::Save:
         return save();
@@ -50,8 +58,9 @@ MainWindow::~MainWindow()
     }
     return false;
 }
-void MainWindow::closeEvent(QCloseEvent* event){
 
+void MainWindow::closeEvent(QCloseEvent* event){
+    //event handler for close event
     if(askToSave())
         event->accept();
     else
@@ -60,8 +69,10 @@ void MainWindow::closeEvent(QCloseEvent* event){
 }
 bool MainWindow::saveFile(const QString& fileName){
 
+    //handle saving of files
     QFile file(fileName);
 
+    //don't wtie to a read only file
     if (!file.open(QFile::WriteOnly | QFile::Text)){
         QMessageBox::warning(this,tr("Notepad"),tr("Cannot write file"));//edit to make use of fileName and error message
         return false;
@@ -73,14 +84,18 @@ bool MainWindow::saveFile(const QString& fileName){
     setCurrentFile(fileName);
     return true;
   }
+
 bool MainWindow::save(){
+    //if the file has not yet been saved, call saveAs
    if(currentFile.isEmpty())
        return saveAs();
    else
        return saveFile(currentFile);
-};
+}
+
 bool MainWindow::saveAs(){
 
+    //create a dialog box to get the details for the file
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::AnyFile);
     dialog.setNameFilter(tr("Text (*.txt)"));
@@ -89,6 +104,7 @@ bool MainWindow::saveAs(){
 
     QString fileName;
 
+    //if user accepts to save the save the first file if multiple are selected
     if(dialog.exec()==QDialog::Accepted){
         fileName = dialog.selectedFiles().first();
         return saveFile(fileName);
@@ -96,18 +112,22 @@ bool MainWindow::saveAs(){
     else{
         return false;
     }
-};
+}
+
+//delete a selection of texs
 void MainWindow::deleteSelection(){
       QTextCursor  cursor(textEdit->textCursor());
       cursor.removeSelectedText();
 }
-void MainWindow::newFile(){
 
+void MainWindow::newFile(){
+    //if the user cancels the save prompt then return
     if(!askToSave())
         return;
     textEdit->clear();
     setCurrentFile(QString());
-};
+}
+
 void MainWindow::openFile(){
 
     if(askToSave()){
@@ -126,7 +146,7 @@ void MainWindow::openFile(){
          loadFile(fileName);
     }
 
-};
+}
 void MainWindow::loadFile(const QString& fileName){
 
     QFile file(fileName);
@@ -155,11 +175,11 @@ void MainWindow::setCurrentFile(const QString &fileName){
 
 }
 void MainWindow::pageSetup(){
-
-};
+    //add page setup for printing
+}
 void MainWindow::print(){
-
-};
+   //add printing here
+}
 void MainWindow::findText(){
     findDialog *dialog = new findDialog(this);
 
@@ -177,58 +197,58 @@ void MainWindow::findText(){
      }
 
 
-};
+}
 
 void MainWindow::findNextText(){
 
-};
+}
 void MainWindow::replace(){
      replaceDialog *dialog = new replaceDialog(this);
 
      dialog->exec();
-};
+}
 void MainWindow::goTo(){
      goToLineDialog *dialog = new goToLineDialog(this);
 
      dialog->setLineEditText(textEdit->textCursor().blockNumber());//work around this again
      dialog->exec();
-};
+}
 void MainWindow::timeDate(){
      QDateTime dateTime(QDateTime::currentDateTime());
 
      QString dateTimeString =dateTime.time().toString();
      textEdit->textCursor().insertText(dateTimeString.append(" "));
      textEdit->textCursor().insertText(dateTime.date().toString());
-};
+}
 void MainWindow::wordWrap(bool textWrapped){
 
      if(textWrapped)
         textEdit->setWordWrapMode(QTextOption::WordWrap);
      else
         textEdit->setWordWrapMode(QTextOption::NoWrap);
-};
+}
 void MainWindow::editFont(){
     bool ok;
       QFont font = QFontDialog::getFont(&ok,textEdit->font(), this);
       if (ok) {
           textEdit->setFont(font);
       }
-};
+}
 void MainWindow::showStatusBar(bool checked){
 
     if(checked)
         statusBar()->show();
     else
         statusBar()->hide();
-};
+}
 void MainWindow::viewHelp(){
     QMessageBox::about(this,tr("About Notepad"),tr("The <b>NotePad Clone</b> This is a clone version "
                                                        "of the Notepad application provided by microsoft, "));
 
-};
+}
 void MainWindow::about(){
 
-};
+}
 void MainWindow::readSettings(){
 
     QSettings settings(QCoreApplication::organizationName(),QCoreApplication::applicationName());
@@ -256,9 +276,7 @@ void MainWindow::commitData(QSessionManager &manager){
             save();
     }
 }
-
-void MainWindow::createActions(){
-
+void MainWindow::createFileActions(){
     QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 
     QAction *newAction = new QAction(tr("&New"),this);
@@ -304,7 +322,8 @@ void MainWindow::createActions(){
     exitAction->setStatusTip(tr("Exit the application"));
     connect(exitAction,&QAction::triggered,this,&QMainWindow::close);
     fileMenu->addAction(exitAction);
-
+}
+void MainWindow::createEditActions(){
     QMenu *editMenu = menuBar()->addMenu(tr("&Edit"));
 
     QAction *undoAction = new QAction(tr("&Undo"),this);
@@ -384,6 +403,20 @@ void MainWindow::createActions(){
     connect(timeDateAction,&QAction::triggered,this,&MainWindow::timeDate);
     editMenu->addAction(timeDateAction);
 
+    cutAction->setEnabled(false);
+    copyAction->setEnabled(false);
+    deleteAction->setEnabled(false);
+    findAction->setEnabled(false);
+    findNextAction->setEnabled(false);
+
+    connect(textEdit,&QTextEdit::copyAvailable,cutAction,&QAction::setEnabled);
+    connect(textEdit, &QTextEdit::copyAvailable,copyAction,&QAction::setEnabled);
+    connect(textEdit,&QTextEdit::copyAvailable,deleteAction,&QAction::setEnabled);
+    connect(textEdit, &QTextEdit::copyAvailable,findAction,&QAction::setEnabled);
+    connect(textEdit,&QTextEdit::copyAvailable,findNextAction,&QAction::setEnabled);
+}
+
+void MainWindow::createFormatActions(){
     QMenu *formatMenu = menuBar()->addMenu(tr("F&ormat"));
     QAction *wordWrapAction = new QAction(tr("&Word Wrap"),this);
     wordWrapAction->setCheckable(true);
@@ -396,7 +429,8 @@ void MainWindow::createActions(){
     fontAction->setStatusTip(tr("Change font settings"));
     connect(fontAction,&QAction::triggered,this,&MainWindow::editFont);
     formatMenu->addAction(fontAction);
-
+}
+void MainWindow::createViewActions(){
     QMenu *viewMenu = menuBar()->addMenu(tr("&View"));
 
     QAction *statusBarAction = new QAction(tr("&Status Bar"),this);
@@ -405,6 +439,8 @@ void MainWindow::createActions(){
     connect(statusBarAction,&QAction::toggled,this,&MainWindow::showStatusBar);
     viewMenu->addAction(statusBarAction);
 
+}
+void MainWindow::createHelpActions(){
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
     QAction *helpAction = new QAction(tr("View &Help"),this);
     //set status tip
@@ -416,15 +452,13 @@ void MainWindow::createActions(){
     connect(aboutAction,&QAction::triggered,this,&MainWindow::viewHelp);
     helpMenu->addAction(aboutAction);
 
-    cutAction->setEnabled(false);
-    copyAction->setEnabled(false);
-    deleteAction->setEnabled(false);
-    findAction->setEnabled(false);
-    findNextAction->setEnabled(false);
+}
+void MainWindow::createActions(){
 
-    connect(textEdit,&QTextEdit::copyAvailable,cutAction,&QAction::setEnabled);
-    connect(textEdit, &QTextEdit::copyAvailable,copyAction,&QAction::setEnabled);
-    connect(textEdit,&QTextEdit::copyAvailable,deleteAction,&QAction::setEnabled);
-    connect(textEdit, &QTextEdit::copyAvailable,findAction,&QAction::setEnabled);
-    connect(textEdit,&QTextEdit::copyAvailable,findNextAction,&QAction::setEnabled);
+    createFileActions();
+    createEditActions();
+    createFormatActions();
+    createViewActions();
+    createHelpActions();
+
 }

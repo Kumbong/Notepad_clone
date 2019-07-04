@@ -23,6 +23,11 @@ private:
     bool saveFile(const QString& fileName);
     void loadFile(const QString& fileName);
     void setCurrentFile(const QString& fileName);
+    void createFileActions();
+    void createEditActions();
+    void createFormatActions();
+    void createViewActions();
+    void createHelpActions();
 private slots:
     void newFile();
     void openFile();
