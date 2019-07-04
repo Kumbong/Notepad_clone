@@ -1,2 +1,30 @@
 # Notepad--
-Yet another insignificant piece of code but it's all about learning right?  This project is a clone of the notepad application that runs on the windows environment using  C++(QT).
+A lightweight and cross platform variant of notepad
+
+## Features
+   * Written in uncomplicated c++
+   * supports all operations on notepad and add extra features
+   * crossplatform
+   
+## Demo
+![](resources/Images/demo.PNG)
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## References
+* Notepad
+    https://en.wikipedia.org/wiki/Microsoft_Notepad
+
+### Todos
+
+ - Complete Features for searching and printing
+ - Write tests
+ - Add more shortcuts
+ - Add intellisense
+
+
+License
+----
+
+MIT &copy; Kumbong Hermann
