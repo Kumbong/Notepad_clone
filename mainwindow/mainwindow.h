@@ -28,6 +28,7 @@ private:
     void createFormatActions();
     void createViewActions();
     void createHelpActions();
+
 private slots:
     void newFile();
     void openFile();
@@ -47,8 +48,8 @@ private slots:
     void about();
     void deleteSelection();
     void documentWasModified();
-    void writeSettings();
     void readSettings();
+    void writeSettings();
     void commitData(QSessionManager &manager);
 
 

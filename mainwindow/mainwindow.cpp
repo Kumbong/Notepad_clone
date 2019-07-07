@@ -58,11 +58,31 @@ bool MainWindow::askToSave(){
     }
     return false;
 }
+void MainWindow::readSettings()
+{
+    QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
+       const QByteArray geometry = settings.value("geometry", QByteArray()).toByteArray();
+       if (geometry.isEmpty()) {
+           const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
+           resize(availableGeometry.width() / 3, availableGeometry.height() / 2);
+           move((availableGeometry.width() - width()) / 2,
+                (availableGeometry.height() - height()) / 2);
+       } else {
+           restoreGeometry(geometry);
+       }
+}
+void MainWindow::writeSettings()
+{
+    QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
+    settings.setValue("geometry", saveGeometry());
+}
 
 void MainWindow::closeEvent(QCloseEvent* event){
     //event handler for close event
-    if(askToSave())
+    if(askToSave()){
+        writeSettings();
         event->accept();
+       }
     else
         event->ignore();
 
@@ -133,7 +153,7 @@ void MainWindow::openFile(){
     if(askToSave()){
      QFileDialog dialog(this);
      dialog.setFileMode(QFileDialog::ExistingFile);
-     dialog.setNameFilter(tr("Text (*.txt)"));
+     dialog.setNameFilter(tr("Text (*.txt);;All files (*.*)"));
      dialog.setViewMode(QFileDialog::Detail);
      dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
@@ -249,23 +269,7 @@ void MainWindow::viewHelp(){
 void MainWindow::about(){
 
 }
-void MainWindow::readSettings(){
 
-    QSettings settings(QCoreApplication::organizationName(),QCoreApplication::applicationName());
-
-    const QByteArray geometry = settings.value("geometry",QByteArray()).toByteArray();
-
-    if(geometry.isEmpty()){
-        setGeometry(500,500,400,400);
-    }
-    else{
-        restoreGeometry(geometry);
-    }
-}
-void MainWindow::writeSettings(){
-    QSettings settings(QCoreApplication::organizationName(),QCoreApplication::applicationName());
-    settings.setValue("geometry",saveGeometry());
-}
 void MainWindow::commitData(QSessionManager &manager){
 
     if(manager.allowsInteraction()){
