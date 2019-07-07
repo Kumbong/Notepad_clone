@@ -3,6 +3,11 @@
 #include "dialogs/gotolinedialog.h"
 #include <QtWidgets>
 #include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QPrinter>
+
+
+//Todo
+//add printing
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -338,13 +343,17 @@ void MainWindow::createFileActions(){
     QAction *pageSetupAction = new QAction(tr("Page Set&up..."),this);
     pageSetupAction->setStatusTip(tr("Change the format and layout of the document"));
     connect(pageSetupAction,&QAction::triggered,this,&MainWindow::pageSetup);
-    fileMenu->addAction(pageSetupAction);
+
+    //implement in late version
+    //fileMenu->addAction(pageSetupAction);
 
     QAction *printAction = new QAction(tr("&Print"),this);
     printAction->setShortcuts(QKeySequence::Print);
     printAction->setStatusTip(tr("Print Document"));
     connect(printAction,&QAction::triggered,this,&MainWindow::print);
-    fileMenu->addAction(printAction);
+
+    //implement in later version
+    //fileMenu->addAction(printAction);
 
     fileMenu->addSeparator();
 

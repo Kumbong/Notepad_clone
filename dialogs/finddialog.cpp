@@ -9,14 +9,14 @@ findDialog::findDialog(QWidget *parent) :
     ui->findNextButton->setEnabled(false);
     ui->downRadioButton->setChecked(true);
 
-    connect(ui->lineEdit,&QLineEdit::textChanged,this,&findDialog::on_lineEdit_text_changed);
+    connect(ui->lineEdit,&QLineEdit::textChanged,this,&findDialog::text_changed);
 }
 
 findDialog::~findDialog()
 {
     delete ui;
 }
-void findDialog::on_lineEdit_text_changed(){
+void findDialog::text_changed(){
 
     if(!ui->lineEdit->text().isEmpty())
       ui->findNextButton->setEnabled(true);

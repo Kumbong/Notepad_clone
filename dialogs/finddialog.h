@@ -18,7 +18,7 @@ public:
     void getDialogOutput(bool &caseSensitve, findDialog::Direction &searchDirection, QString &searchString);
     ~findDialog();
 private slots:
-    void on_lineEdit_text_changed();
+    void text_changed();
 
 private:
     Ui::findDialog *ui;

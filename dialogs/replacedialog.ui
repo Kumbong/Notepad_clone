@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>388</width>
-    <height>142</height>
+    <width>402</width>
+    <height>150</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Replace</string>
   </property>
-  <widget class="QCheckBox" name="checkBox">
+  <widget class="QCheckBox" name="caseCheckBox">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -26,13 +26,13 @@
     <string>Match &amp;case</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>300</x>
      <y>10</y>
-     <width>77</width>
-     <height>112</height>
+     <width>95</width>
+     <height>135</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -72,7 +72,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -111,6 +111,15 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>findLineEdit</tabstop>
+  <tabstop>replaceLineEdit</tabstop>
+  <tabstop>caseCheckBox</tabstop>
+  <tabstop>findNextButton</tabstop>
+  <tabstop>replaceButton</tabstop>
+  <tabstop>replaceAllButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -120,8 +129,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>314</x>
-     <y>111</y>
+     <x>315</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>221</x>
@@ -168,8 +177,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>358</x>
-     <y>80</y>
+     <x>359</x>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
      <x>384</x>
