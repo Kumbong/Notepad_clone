@@ -57,6 +57,9 @@ private slots:
 private:
     QTextEdit* textEdit;
     QString currentFile;
+    QFont font;
+    bool statusBarIsOn;
+    int wordCount;
 };
 
 #endif // MAINWINDOW_H

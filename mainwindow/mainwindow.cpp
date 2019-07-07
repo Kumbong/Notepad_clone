@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     textEdit = new QTextEdit(this);
+    wordCount = 0;
 
     createActions();
     setCentralWidget(textEdit);
@@ -21,12 +22,23 @@ MainWindow::MainWindow(QWidget *parent)
     connect(qApp, &QGuiApplication::commitDataRequest,
             this, &MainWindow::commitData);
 
-    textEdit->setFontFamily(QString("Courier"));
-    textEdit->setFontPointSize(12);
+    if(statusBarIsOn){
+        showStatusBar(true);
+    }else{
+        showStatusBar(false);
+    }
+
 }
 
 void MainWindow::documentWasModified(){
      setWindowModified(textEdit->document()->isModified());
+     wordCount = textEdit->toPlainText().split(QRegExp("(\\s|\\n|\\r)+")
+                                                       , QString::SkipEmptyParts).count();
+
+     if(statusBarIsOn)
+        this->statusBar()->showMessage(QString::number(wordCount) + QString(" words"));
+
+
 }
 MainWindow::~MainWindow()
 {
@@ -61,7 +73,7 @@ bool MainWindow::askToSave(){
 void MainWindow::readSettings()
 {
     QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
-       const QByteArray geometry = settings.value("geometry", QByteArray()).toByteArray();
+       const QByteArray geometry = settings.value("mainwindow/geometry", QByteArray()).toByteArray();
        if (geometry.isEmpty()) {
            const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
            resize(availableGeometry.width() / 3, availableGeometry.height() / 2);
@@ -70,11 +82,22 @@ void MainWindow::readSettings()
        } else {
            restoreGeometry(geometry);
        }
+       font = settings.value("text/font", QFont()).value<QFont>();
+       statusBarIsOn = settings.value("mainwindow/statusbar").toBool();
+       textEdit->setFont(font);
 }
 void MainWindow::writeSettings()
 {
     QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
+
+    settings.beginGroup("mainwindow");
     settings.setValue("geometry", saveGeometry());
+    settings.setValue("statusbar",statusBarIsOn);
+    settings.endGroup();
+
+    settings.beginGroup("text");
+    settings.setValue("font", font);
+    settings.endGroup();
 }
 
 void MainWindow::closeEvent(QCloseEvent* event){
@@ -249,20 +272,24 @@ void MainWindow::wordWrap(bool textWrapped){
 }
 void MainWindow::editFont(){
     bool ok;
-      QFont font = QFontDialog::getFont(&ok,textEdit->font(), this);
+      font = QFontDialog::getFont(&ok,textEdit->font(), this);
       if (ok) {
           textEdit->setFont(font);
       }
 }
 void MainWindow::showStatusBar(bool checked){
 
-    if(checked)
+    statusBarIsOn = checked;
+
+    if(statusBarIsOn){
         statusBar()->show();
+        statusBar()->showMessage(QString::number(wordCount) + QString(" words"));
+    }
     else
         statusBar()->hide();
 }
 void MainWindow::viewHelp(){
-    QMessageBox::about(this,tr("About Notepad--"),tr("<b>NotePad-- Clone</b>\n This is a light, cross platform variant"
+    QMessageBox::about(this,tr("About Notepad--"),tr("<b>NotePad--</b>\n This is a light, cross platform variant "
                                                        "of the Notepad application on Windows, "));
 
 }
