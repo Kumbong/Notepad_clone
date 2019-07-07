@@ -1,30 +1,39 @@
-# Notepad--
+![](https://img.shields.io/maintenance/yes/2019.svg)
+![](https://img.shields.io/github/issues/kumbong/notepad--.svg)
+![](https://img.shields.io/github/license/kumbong/notepad--.svg)
+[![Requirements Status](https://requires.io/github/Kumbong/notepad--/requirements.svg?branch=master)](https://requires.io/github/Kumbong/notepad--/requirements/?branch=master)
+![](https://img.shields.io/github/languages/count/kumbong/notepad--.svg)
+![](https://img.shields.io/github/languages/top/kumbong/notepad--.svg)
+![](https://img.shields.io/github/languages/code-size/kumbong/notepad--.svg)
+# Notepad-- :notebook_with_decorative_cover:
 A lightweight and cross platform variant of notepad
 
-## Features
-   * Written in uncomplicated c++
-   * supports all operations on notepad and adds extra features
-   * crossplatform
+## Features :gem:
+   * Written in uncomplicated c++ :innocent:
+   * supports all operations on notepad and adds extra features :droplet:
+   * crossplatform :globe_with_meridians:
    
-## Demo
+## Demo :video_camera:
 ![](resources/Images/demo.PNG)
 
-## Contributing
+## Contributing :gift:
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-## References
+## References :open_book:
 * Notepad
     https://en.wikipedia.org/wiki/Microsoft_Notepad
 
-### Todos
+## Todos :pencil:
 
+- Automate building 
+ - Usage and site
  - Complete Features for searching and printing
  - Write tests
  - Add more shortcuts
  - Add intellisense
 
 
-License
+License :key:
 ----
 
 MIT &copy; Kumbong Hermann
