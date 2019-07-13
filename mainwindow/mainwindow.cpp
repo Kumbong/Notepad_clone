@@ -196,7 +196,7 @@ void MainWindow::openFile(){
 
 }
 void MainWindow::loadFile(const QString& fileName){
-
+    //when a file is selected opens and reads the file
     QFile file(fileName);
 
     if(!file.open(QFile::ReadOnly | QFile::Text)){
