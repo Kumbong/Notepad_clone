@@ -5,6 +5,7 @@
 ![](https://img.shields.io/github/languages/count/kumbong/notepad--.svg)
 ![](https://img.shields.io/github/languages/top/kumbong/notepad--.svg)
 ![](https://img.shields.io/github/languages/code-size/kumbong/notepad--.svg)
+[![CodeFactor](https://www.codefactor.io/repository/github/kumbong/notepad--/badge)](https://www.codefactor.io/repository/github/kumbong/notepad--)
 # Notepad-- :notebook_with_decorative_cover:
 A lightweight and cross platform variant of notepad
 
